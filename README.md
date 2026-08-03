@@ -5,14 +5,14 @@ The goal was to conduct a general study on pizza sales using Microsoft SQL Serve
 ## Project Summary
 The goal of this project was to analyze 46,000 rows of pizza sales data obtained from Kaggle. After performing the necessary data cleaning on the dataset, 14 different queries were generated using SQL Server.
 ## Sample Query and Output
-##1.KPI’S
+## 1.KPI’S
 
 
 
 
 
 
-##1.TOTAL REVENUE 
+## 1.TOTAL REVENUE 
 SELECT SUM(total_price) AS TOTAL_REVENUE FROM pizza_sales
  
  <img width="263" height="90" alt="image" src="https://github.com/user-attachments/assets/60dd64c6-62f1-4026-b3ed-3ff0e846e6a6" />
@@ -22,7 +22,7 @@ SELECT SUM(total_price) AS TOTAL_REVENUE FROM pizza_sales
 
 
 
-##2. AVARAGE ORDER VALUE 
+## 2. AVARAGE ORDER VALUE 
 
 SELECT SUM(total_price)/count(DISTINCT order_id) AS AVG_ORDER_VALUE FROM pizza_sales
 
@@ -33,7 +33,7 @@ SELECT SUM(total_price)/count(DISTINCT order_id) AS AVG_ORDER_VALUE FROM pizza_s
 
 
 
-##3. TOTAL PİZZA SOLD
+## 3. TOTAL PİZZA SOLD
 SELECT SUM(quantity) AS TOTAL_PİZZA_SOLD from pizza_sales
 
 <img width="234" height="64" alt="image" src="https://github.com/user-attachments/assets/7b6e4cfb-233e-4ea0-98cd-40eef31e79f7" />
@@ -42,7 +42,7 @@ SELECT SUM(quantity) AS TOTAL_PİZZA_SOLD from pizza_sales
 
 
 
-##4. TOTAL ORDERS 
+## 4. TOTAL ORDERS 
 SELECT COUNT(DISTINCT order_id) AS TOTAL_ORDERS from pizza_sales
  
  <img width="188" height="51" alt="image" src="https://github.com/user-attachments/assets/e619925a-0fd6-4054-8d7c-6e57e3281c5b" />
@@ -51,7 +51,7 @@ SELECT COUNT(DISTINCT order_id) AS TOTAL_ORDERS from pizza_sales
 
 
 
-##5. AVARAGE PIZZAS PER ORDER
+## 5. AVARAGE PIZZAS PER ORDER
 SELECT CAST(CAST(SUM(quantity) AS decimal (10,2)) / CAST(COUNT(DISTINCT order_id) AS decimal (10,2)) AS decimal (10,2)) AS AVG_PIZZAS_PER_ORDER from pizza_sales
 
  <img width="254" height="50" alt="image" src="https://github.com/user-attachments/assets/fb4ca427-8aa5-46f7-b18e-89893994719a" />
@@ -61,7 +61,7 @@ SELECT CAST(CAST(SUM(quantity) AS decimal (10,2)) / CAST(COUNT(DISTINCT order_id
 
 
 
-##B. DAILY TRENDS FOR TOTAL ORDERS
+## B. DAILY TRENDS FOR TOTAL ORDERS
 SELECT DATENAME(DW,order_date) AS ORDER_DAY ,COUNT(DISTINCT order_id) AS TOTAL_ORDERS
 from pizza_sales
 GROUP BY DATENAME(DW,order_date)
@@ -74,7 +74,7 @@ GROUP BY DATENAME(DW,order_date)
 
 
 
-##C. HOURLY TREND FOR TOTAL ORDERS
+## C. HOURLY TREND FOR TOTAL ORDERS
 SELECT DATEPART(HOUR,order_time) AS ORDER_HOURS, COUNT (DISTINCT order_id) AS TOTAL_ORDERS 
 from pizza_sales
 GROUP BY DATEPART(HOUR, order_time)
@@ -85,7 +85,7 @@ ORDER BY DATEPART(HOUR, order_time)
 
 
 
-##D. % OF SALES BY PIZZA CATEGORY
+## D. % OF SALES BY PIZZA CATEGORY
 SELECT pizza_category, CAST(SUM(total_price) AS decimal(10,2)) AS TOTAL_REVENUE, 
 CAST(SUM(total_price) * 100/ ( SELECT SUM(total_price) from pizza_sales) AS decimal (10,2)) AS PCT
 from pizza_sales
@@ -97,7 +97,7 @@ GROUP BY pizza_category
 
 
 
-##E. % OF SALES BY PIZZA SIZE
+## E. % OF SALES BY PIZZA SIZE
 SELECT pizza_size, CAST(SUM(total_price) AS decimal(10,2)) AS TOTAL_REVENUE, 
 CAST(SUM(total_price) * 100/ ( SELECT SUM(total_price) from pizza_sales) AS decimal (10,2)) AS PCT
 from pizza_sales
@@ -111,7 +111,7 @@ GROUP BY pizza_size
 
 
 
-##F. TOTAL PİZZAS SOLD BY PİZZA CATEGORY
+## F. TOTAL PİZZAS SOLD BY PİZZA CATEGORY
 SELECT pizza_category, sum(quantity) as TOTAL_QUANTİTY_SOLD
 from pizza_sales
 GROUP BY pizza_category
@@ -124,7 +124,7 @@ ORDER BY TOTAL_QUANTİTY_SOLD
 
 
 
-##G. TOP 5 BEST SELLERS BY TOTAL PIZZAS SOLD
+## G. TOP 5 BEST SELLERS BY TOTAL PIZZAS SOLD
 SELECT TOP 5 pizza_name, SUM(quantity) AS TOTAL_PIZZAS_SOLD from pizza_sales
 GROUP BY pizza_name
 ORDER BY TOTAL_PIZZAS_SOLD DESC
@@ -136,7 +136,7 @@ ORDER BY TOTAL_PIZZAS_SOLD DESC
 
 
 
-##H. BOTTOM 5 BEST SELLERS BY TOTAL PIZZAS SOLD
+## H. BOTTOM 5 BEST SELLERS BY TOTAL PIZZAS SOLD
 SELECT TOP 5 pizza_name, SUM(quantity) AS TOTAL_PIZZAS_SOLD from pizza_sales
 GROUP BY pizza_name
 ORDER BY TOTAL_PIZZAS_SOLD ASC
